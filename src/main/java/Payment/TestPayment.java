@@ -28,21 +28,21 @@ public class TestPayment {
     public ExpectedException exceptionRule = ExpectedException.none();
 
     @Test
-    public void  Payment_Delivery_Home_Test() throws Exception {
+    public void  Payment_Delivery_Home_Test_valid() throws Exception {
        // buyer is a person payment valid
         when(payment.order_exist(anyString(),anyString(),anyString(),anyString())).thenReturn(true);
         when(payment.delivery_home_exist(anyString(),anyString(),anyString(),anyString(),anyString(),anyString(),anyString(),anyString(),anyString())).thenReturn(true);
 
-        boolean payment = paymExp.payment_delivery_home("batna","chmara","111","rue","14587","hh@gmail.com","gps","10","1000","1001","1200","104","0");
+        boolean payment = paymExp.payment_delivery_home("wilaya","commune","111","home","14587","mail","gps","10","1000","1001","1200","104","0");
         assertEquals(true,payment);
     }
     @Test
-    public void payment_delivery_point_saller_Test() throws Exception {
+    public void payment_delivery_point_saller_Test_valid() throws Exception {
         //buyer is a company payment validate
         when(payment.order_exist(anyString(),anyString(),anyString(),anyString())).thenReturn(true);
         when(payment.delivery_point_saller_exist(anyString(),anyString(),anyString(),anyString(),anyString())).thenReturn(true);
 
-        boolean payment =   paymExp.payment_delivery_point_saller("14587","hh@gmail.com","batna","gps","10","1001","1200","104","0");
+        boolean payment =   paymExp.payment_delivery_point_saller("14587","mail","point","gps","10","1001","1200","104","0");
         assertEquals(true,payment);
     }
     @Test
@@ -53,7 +53,7 @@ public class TestPayment {
                 anyString(),anyString(),anyString())).thenReturn(false);
         exceptionRule.expect(Exception.class);
         exceptionRule.expectMessage("les information d'une commande doit être correct et pas vide");
-        paymExp.payment_delivery_home("batna","chmara","","rue","14587","hh@gmail.com","gps","10","1000","1001","1200","104","0");
+        paymExp.payment_delivery_home("wilaya","commune","","home","14587","mail","gps","10","1000","1001","1200","104","0");
     }
     @Test
     public void Payment_Delivery_Home_Test_order_not_exist() throws Exception {
@@ -62,7 +62,7 @@ public class TestPayment {
         when(payment.delivery_home_exist(anyString(),anyString(),anyString(),anyString(),anyString(),anyString(),anyString(),anyString(),anyString())).thenReturn(true);
         exceptionRule.expect(Exception.class);
         exceptionRule.expectMessage("cette commande pas existé");
-       paymExp.payment_delivery_home("batna","chmara","111","rue","14587","hh@gmail.com","gps","10","1000","1001","1200","104","0");
+       paymExp.payment_delivery_home("wilaya","commune","111","home","14587","mail","gps","10","1000","1001","1200","104","0");
 
     }
     @Test
@@ -72,7 +72,7 @@ public class TestPayment {
         when(payment.delivery_home_exist(anyString(),anyString(),anyString(),anyString(),anyString(),anyString(),anyString(),anyString(),anyString())).thenReturn(false);
         exceptionRule.expect(Exception.class);
         exceptionRule.expectMessage("cette livraison pas existé");
-        paymExp.payment_delivery_home("batna","chmara","111","rue","14587","hh@gmail.com","gps","10","1000","1001","1200","104","0");
+        paymExp.payment_delivery_home("wilaya","commune","111","home","14587","mail","gps","10","1000","1001","1200","104","0");
     }
     @Test
     public void payment_delivery_point_saller_Test_info_payment_empty() throws Exception {
@@ -81,7 +81,7 @@ public class TestPayment {
         when(payment.delivery_point_saller_exist(anyString(),anyString(),anyString(),anyString(),anyString())).thenReturn(true);
         exceptionRule.expect(Exception.class);
         exceptionRule.expectMessage("les information d'une commande doit être correct et pas vide");
-        paymExp.payment_delivery_point_saller("14587","hh@gmail.com","batna","gps","10","","1200","104","0");
+        paymExp.payment_delivery_point_saller("14587","mail","point","gps","10","","1200","104","0");
 
     }
     @Test
@@ -91,7 +91,7 @@ public class TestPayment {
         when(payment.delivery_point_saller_exist(anyString(),anyString(),anyString(),anyString(),anyString())).thenReturn(true);
         exceptionRule.expect(Exception.class);
         exceptionRule.expectMessage("cette commande pas existé");
-        boolean payment = paymExp.payment_delivery_point_saller("14587","hh@gmail.com","batna","gps","10","1001","1200","104","0");
+        boolean payment = paymExp.payment_delivery_point_saller("14587","mail","point","gps","10","1001","1200","104","0");
         assertEquals(true,payment);
     }
     @Test
@@ -101,7 +101,7 @@ public class TestPayment {
         when(payment.delivery_point_saller_exist(anyString(),anyString(),anyString(),anyString(),anyString())).thenReturn(false);
         exceptionRule.expect(Exception.class);
         exceptionRule.expectMessage("cette livraison pas existé");
-        paymExp.payment_delivery_point_saller("14587","hh@gmail.com","batna","gps","10","1001","1200","104","0");
+        paymExp.payment_delivery_point_saller("14587","mail","point","gps","10","1001","1200","104","0");
 
     }
 

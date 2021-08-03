@@ -31,13 +31,13 @@ public class TestDelivery {
     public ExpectedException exceptionRule = ExpectedException.none();
 
     @Test
-    public void home_delivery_Test() throws Exception {
+    public void home_delivery_Test_valid() throws Exception {
         //home delivery validate
         when(delivServ.link_exist(anyString(),anyString(),anyString(),anyString())).thenReturn(true);
         when(orderServ.number_phone(anyString())).thenReturn(true);
         when(orderServ.mail_validate(anyString())).thenReturn(true);
-        boolean delev = delivExp.home_delivery("batna","chmara","2515","rue 14",
-                "125487","hh@gmail.com","Gps") ;
+        boolean delev = delivExp.home_delivery("wilaya","commune","2515","home",
+                "125487","mail","Gps") ;
         assertEquals(true,delev);
     }
     @Test
@@ -48,8 +48,8 @@ public class TestDelivery {
         when(orderServ.number_phone(anyString())).thenReturn(false);
         exceptionRule.expect(Exception.class);
         exceptionRule.expectMessage("les information d'une commande doit être correct et pas vide");
-        delivExp.home_delivery("batna","chmara","2515","rue 14",
-                "","hh@gmail.com","Gps") ;
+        delivExp.home_delivery("wilaya","commune","2515","home",
+                "","mail","Gps") ;
 
     }
     @Test
@@ -60,8 +60,8 @@ public class TestDelivery {
         when(orderServ.number_phone(anyString())).thenReturn(true);
         exceptionRule.expect(Exception.class);
         exceptionRule.expectMessage("l'adresse email doit être correct et exist");
-        delivExp.home_delivery("batna","chmara","2515","rue 14",
-                "125487","hh@gmail.com","Gps") ;
+        delivExp.home_delivery("wilaya","commune","2515","home",
+                "125487","mail","Gps") ;
 
     }
     @Test
@@ -74,8 +74,8 @@ public class TestDelivery {
 
         exceptionRule.expect(Exception.class);
         exceptionRule.expectMessage("le numéro de téléphone doit être valide ");
-        delivExp.home_delivery("batna","chmara","2515","rue 14",
-                "125487","hh@gmail.com","Gps") ;
+        delivExp.home_delivery("wilaya","commune","2515","home",
+                "125487","mail","Gps") ;
 
     }
     @Test
@@ -88,17 +88,17 @@ public class TestDelivery {
 
         exceptionRule.expect(Exception.class);
         exceptionRule.expectMessage("Le lien GPS doit être compatible avec les informations saisies");
-        delivExp.home_delivery("batna","chmara","2515","rue 14",
-                "125487","hh@gmail.com","Gps") ;
+        delivExp.home_delivery("wilaya","commune","2515","home",
+                "125487","mail","Gps") ;
 
     }
     @Test
-    public void Delivery_Point_Saller_Test() throws Exception {
+    public void Delivery_Point_Saller_Test_valid() throws Exception {
         //delivery point or delivery point to the seller validate
         when(delivServ.link_point(anyString(),anyString())).thenReturn(true);
         when(orderServ.number_phone(anyString())).thenReturn(true);
         when(orderServ.mail_validate(anyString())).thenReturn(true);
-        boolean delv = delivExp.Delivery_Point_Saller("125487","hh@gmail.com","C3RM+8R8, El Hamma","El Hamma") ;
+        boolean delv = delivExp.Delivery_Point_Saller("125487","mail","GPS","point") ;
         assertEquals(true,delv);
     }
     @Test
@@ -109,7 +109,7 @@ public class TestDelivery {
         when(orderServ.mail_validate(anyString())).thenReturn(true);
         exceptionRule.expect(Exception.class);
         exceptionRule.expectMessage("les information d'une commande doit être correct et pas vide");
-        delivExp.Delivery_Point_Saller("125487","hh@gmail.com","","El Hamma") ;
+        delivExp.Delivery_Point_Saller("125487","mail","","point") ;
 
     }
     @Test
@@ -120,7 +120,7 @@ public class TestDelivery {
         when(orderServ.mail_validate(anyString())).thenReturn(false);
         exceptionRule.expect(Exception.class);
         exceptionRule.expectMessage("l'adresse email doit être correct et exist");
-        delivExp.Delivery_Point_Saller("125487","hh@gmail.com","C3RM+8R8, El Hamma","El Hamma") ;
+        delivExp.Delivery_Point_Saller("125487","mail","GPS","point") ;
 
     }
     @Test
@@ -133,7 +133,7 @@ public class TestDelivery {
 
         exceptionRule.expect(Exception.class);
         exceptionRule.expectMessage("le numéro de téléphone doit être valide ");
-        delivExp.Delivery_Point_Saller("125487","hh@gmail.com","C3RM+8R8,El Hamma","El Hamma") ;
+        delivExp.Delivery_Point_Saller("125487","mail","GPS","point") ;
 
     }
     @Test
@@ -147,7 +147,7 @@ public class TestDelivery {
 
         exceptionRule.expect(Exception.class);
         exceptionRule.expectMessage("Le lien GPS doit être compatible avec le point de livraison");
-        delivExp.Delivery_Point_Saller("125487","hh@gmail.com","C3RM+8R8,El Hamma","batna") ;
+        delivExp.Delivery_Point_Saller("125487","mail","GPS","point") ;
 
     }
 

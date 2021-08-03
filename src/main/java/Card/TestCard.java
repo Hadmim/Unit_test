@@ -33,31 +33,32 @@ public class TestCard {
         MockitoAnnotations.initMocks(this);
     }
     @Rule
-  private ExpectedException exceptionRule = ExpectedException.none();
+  public ExpectedException exceptionRule = ExpectedException.none();
 
 
     @Test
-    public void date_Expiry_Test() throws Exception {
+    public void date_Expiry_Test_valid() throws Exception {
         // card date true
         when(card.date_expiration(anyString())).thenReturn(sdf.parse("11-8-2021"));
-        boolean date = cardexp.date_Expiry("", "11-8-2021");
+        String date_Expiry_input="11-08-2021";
+        boolean date = cardexp.date_Expiry("", date_Expiry_input);
         assertEquals(true, date);
     }
     @Test
     public void  date_Expiry_Test_inputdate_false() throws Exception {
         // card date false
         when(card.date_expiration(anyString())).thenReturn(sdf.parse("15-5-2021"));
-
+        String date_Expiry_input="11-08-2021";
         exceptionRule.expect(Exception.class);
         exceptionRule.expectMessage("Date d’expiration erronée");
-        cardexp.date_Expiry(anyString(),"11-08-2021");
+        cardexp.date_Expiry("",date_Expiry_input);
 
     }
     @Test
     public void date_Expiry_expired_Test_notexpired() throws Exception {
         // card date Expiry not expired
-
-        boolean date = cardexp.date_Expiry_expired(sdf.parse("11-8-2023"));
+        String date_Expiry_input="11-8-2023";
+        boolean date = cardexp.date_Expiry_expired(sdf.parse(date_Expiry_input));
         assertEquals(true, date);
     }
     @Test
@@ -66,11 +67,12 @@ public class TestCard {
 
         exceptionRule.expect(Exception.class);
         exceptionRule.expectMessage("Date d’expiration de la carte est dépassé");
-        cardexp.date_Expiry_expired(sdf.parse("11-6-2021"));
+        String date_Expiry_input="11-6-2021";
+        cardexp.date_Expiry_expired(sdf.parse(date_Expiry_input));
 
     }
     @Test
-    public void name_cardholder_Test() throws Exception {
+    public void name_cardholder_Test_valid() throws Exception {
         // name cardholder true
         when(card.is_existe(anyString())).thenReturn(true);
         when(card.name(anyString(),anyString(),anyString())).thenReturn(true);
@@ -84,7 +86,7 @@ public class TestCard {
         when(card.name(anyString(),anyString(),anyString())).thenReturn(true);
         exceptionRule.expect(Exception.class);
         exceptionRule.expectMessage("la carte est erroné");
-        cardexp.name_cardholder(anyString(),"","");
+        cardexp.name_cardholder("","","");
 
     }
     @Test
@@ -98,7 +100,7 @@ public class TestCard {
 
     }
     @Test
-    public void lost_card_Test() throws Exception {
+    public void lost_card_Test_notlost() throws Exception {
         //card not lost
         when(card.card_lost(anyString())).thenReturn(false);
 
@@ -116,7 +118,7 @@ public class TestCard {
 
     }
     @Test
-    public void Stop_card_Test() throws Exception {
+    public void Stop_card_Test_notstop() throws Exception {
         //card not stopped
         when(card.card_stopped(anyString())).thenReturn(false);
 
@@ -136,38 +138,40 @@ public class TestCard {
     public void solde_card_Test_sufficient() throws Exception {
         //card sufficient balance card
         when(card.card_solde(anyString())).thenReturn(7800.0F);
-
-        boolean solde= cardexp.solde_card("",6000);
+        float total=6000;
+        boolean solde= cardexp.solde_card("",total);
         assertEquals(true,solde);
     }
     @Test
     public void solde_card_Test_insufficient() throws Exception {
         //card insufficient balance card
         when(card.card_solde(anyString())).thenReturn(7800.0F);
+        float total=8000;
         exceptionRule.expect(Exception.class);
         exceptionRule.expectMessage("Ce montant n'est pas suffisant");
-        cardexp.solde_card("",8000);
+        cardexp.solde_card("",total);
 
     }
     @Test
-    public void card_cvv2_Test() throws Exception {
+    public void card_cvv2_Test_valid() throws Exception {
         //card cvv2 true
         when(card.card_cvv2(anyString())).thenReturn(126);
-
-        boolean cvv2= cardexp.card_cvv2("6280 7854",126);
+        int input_cvv2=126;
+        boolean cvv2= cardexp.card_cvv2("",input_cvv2);
         assertEquals(true,cvv2);
     }
     @Test
     public void card_cvv2_Test_inputcvv2_false() throws Exception {
         //card cvv2 false
         when(card.card_cvv2(anyString())).thenReturn(126);
+        int input_cvv2=115;
         exceptionRule.expect(Exception.class);
         exceptionRule.expectMessage("le cvv2 pas correct");
-        cardexp.card_cvv2("",115);
+        cardexp.card_cvv2("",input_cvv2);
 
     }
     @Test
-    public void Authorized_ServPayment_Test() throws Exception {
+    public void Authorized_ServPayment_Test_valid() throws Exception {
         //card  authorized for online payment
         when(card.card_Authorized_ServPayment(anyString())).thenReturn(true);
 
@@ -184,7 +188,7 @@ public class TestCard {
 
     }
     @Test
-    public void Active_ServPayment_Test() throws Exception {
+    public void Active_ServPayment_Test_valid() throws Exception {
         //card active for online payment
         when(card.card_Active_SerPayment(anyString())).thenReturn(true);
 
@@ -201,7 +205,7 @@ public class TestCard {
 
     }
     @Test
-    public void Card_Stolen_Test() throws Exception {
+    public void Card_Stolen_Test_notstolen() throws Exception {
         //card not stolen
         when(card.card_stolen(anyString())).thenReturn(false);
 
@@ -218,42 +222,44 @@ public class TestCard {
 
     }
     @Test
-    public void Number_Transaction_Test() throws Exception {
+    public void Number_Transaction_Test_not_Outmoded() throws Exception {
         //number of transaction not Outmoded
         when(card.card_number_transaction()).thenReturn(3);
-
-        boolean trans= cardexp.number_transaction(2);
+        int number_of_transaction=2;
+        boolean trans= cardexp.number_transaction(number_of_transaction);
         assertEquals(true,trans);
     }
     @Test
     public void Number_Transaction_Test_outmoded() throws Exception {
         //number of transaction Outmoded
         when(card.card_number_transaction()).thenReturn(3);
+        int number_of_transaction=4;
         exceptionRule.expect(Exception.class);
         exceptionRule.expectMessage("Transaction Plafond Carte Dépassé");
-        cardexp.number_transaction(4);
+        cardexp.number_transaction(number_of_transaction);
 
     }
     @Test
-    public void  Transaction_Password_Test() throws Exception {
+    public void  Transaction_Password_Test_valid() throws Exception {
         //password true
         when(card.password(anyString())).thenReturn("password");
-
-        boolean pass= cardexp.transaction_password("","password");
+        String input_password="password";
+        boolean pass= cardexp.transaction_password("",input_password);
         assertEquals(true,pass);
     }
     @Test
     public void Transaction_Password_Test_inputpassword_false() throws Exception {
         //password false
         when(card.password(anyString())).thenReturn("password false");
+        String input_password="password";
         exceptionRule.expect(Exception.class);
         exceptionRule.expectMessage("Saisie Mot de Passe erroné");
-        cardexp.transaction_password("","password");
+        cardexp.transaction_password("",input_password);
 
     }
 
     @Test
-    public void Authorized_merchant_Test() throws Exception {
+    public void Authorized_merchant_Test_valid() throws Exception {
         //card accepted by the merchant
         when(card.card_Authorized_merchant(anyString())).thenReturn(true);
 
@@ -271,20 +277,21 @@ public class TestCard {
     }
 
     @Test
-    public void Number_Password_Test() throws Exception {
+    public void Number_Password_Test_not_Outmoded() throws Exception {
         //number of input password not Outmoded
         when(card.number_passw()).thenReturn(3);
-
-        boolean NumPass= cardexp.number_password(2);
+        int number_of_password=2;
+        boolean NumPass= cardexp.number_password(number_of_password);
         assertEquals(true,NumPass);
     }
     @Test
     public void Number_Password_Test_Outmoded() throws Exception {
         //number of input password Outmoded
         when(card.number_passw()).thenReturn(3);
+        int number_of_password=4;
         exceptionRule.expect(Exception.class);
         exceptionRule.expectMessage("Dépassement nombre autorisé des PASSWORD");
-        cardexp.number_password(4);
+        cardexp.number_password(number_of_password);
 
     }
 
