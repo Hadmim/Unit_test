@@ -52,7 +52,7 @@ public class TestPayment {
         when(payment.delivery_home_exist(anyString(),anyString(),anyString(),anyString(),anyString(),anyString(),
                 anyString(),anyString(),anyString())).thenReturn(false);
         exceptionRule.expect(Exception.class);
-        exceptionRule.expectMessage("les information d'une commande doit être correct et pas vide");
+        exceptionRule.expectMessage("les information d'une paiement doit être correct et pas vide");
         paymExp.payment_delivery_home("wilaya","commune","","home","14587","mail","gps","10","1000","1001","1200","104","0");
     }
     @Test
@@ -80,7 +80,7 @@ public class TestPayment {
         when(payment.order_exist(anyString(),anyString(),anyString(),anyString())).thenReturn(false);
         when(payment.delivery_point_saller_exist(anyString(),anyString(),anyString(),anyString(),anyString())).thenReturn(true);
         exceptionRule.expect(Exception.class);
-        exceptionRule.expectMessage("les information d'une commande doit être correct et pas vide");
+        exceptionRule.expectMessage("les information d'une paiement doit être correct et pas vide");
         paymExp.payment_delivery_point_saller("14587","mail","point","gps","10","","1200","104","0");
 
     }

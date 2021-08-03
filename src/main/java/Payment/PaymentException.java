@@ -15,7 +15,7 @@ public class PaymentException {
                 StringUtils.isBlank(mail)||StringUtils.isBlank(GPS)||!(StringUtils.isNumeric(daily))||!(StringUtils.isNumeric(trnsp))||StringUtils.isBlank(num_cmd)||
                 !StringUtils.isNumeric(total)
         ||!StringUtils.isNumeric(tva)||!StringUtils.isNumeric(ttc))
-            throw new Exception("les information d'une commande doit être correct et pas vide");
+            throw new Exception("les information d'une paiement doit être correct et pas vide");
 
         if(!paym.order_exist(num_cmd,total,tva,ttc))
             throw new Exception("cette commande pas existé");
@@ -32,7 +32,7 @@ public class PaymentException {
         if(!(StringUtils.isNumeric(phone))||  StringUtils.isBlank(point)||
                 StringUtils.isBlank(mail)||StringUtils.isBlank(GPS)||!StringUtils.isNumeric(daily)||StringUtils.isBlank(num_cmd)||!StringUtils.isNumeric(total)
                 ||!StringUtils.isNumeric(tva)||!StringUtils.isNumeric(ttc))
-            throw new Exception("les information d'une commande doit être correct et pas vide");
+            throw new Exception("les information d'une paiement doit être correct et pas vide");
 
         if(!paym.order_exist(num_cmd,total,tva,ttc))
             throw new Exception("cette commande pas existé");
