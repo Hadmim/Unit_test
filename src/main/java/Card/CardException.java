@@ -1,4 +1,4 @@
-package com.example.transaction_test_unit;
+package Card;
 
 
 import java.text.SimpleDateFormat;
@@ -8,14 +8,14 @@ import java.util.Date;
 public class CardException {
 //card exception
     CardService carte;
-     public  boolean date_exp_true(String num_carte,String date) throws Exception {
+     public  boolean date_Expiry(String num_carte,String date) throws Exception {
          //exception if card date false
          SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
          if(!(carte.date_expiration(num_carte).equals(sdf.parse(date))))
              throw new Exception("Date d’expiration erronée");
          return true;
      }
-    public boolean date_expiration_valide(Date date) throws Exception{
+    public boolean date_Expiry_expired(Date date) throws Exception{
         //exception if expired date
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
        Date now= sdf.parse(sdf.format(new Date())) ;

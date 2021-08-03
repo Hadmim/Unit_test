@@ -1,4 +1,4 @@
-package com.example.transaction_test_unit;
+package Payment;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

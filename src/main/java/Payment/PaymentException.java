@@ -1,16 +1,15 @@
-package com.example.transaction_test_unit;
+package Payment;
 
 import org.apache.commons.lang3.StringUtils;
-
-import javax.xml.transform.sax.SAXResult;
 
 public class PaymentException {
     //payment exception
     PaymentService paym;
-    public boolean payment_delerhome_validate(String wilaya, String commune, String c_postal, String home, String phone, String mail,
+    public boolean payment_delivery_home(String wilaya, String commune, String c_postal, String home, String phone, String mail,
+
                                           String GPS,String daily,String trnsp, String num_cmd, String total, String tva,String ttc) throws Exception {
 
-        //exception payment if the buyer is a person
+        //exception payment in the case of delivery home
         if(StringUtils.isBlank(wilaya)|| StringUtils.isBlank(commune)||!(StringUtils.isNumeric(c_postal))||
                 StringUtils.isBlank(home)||!(StringUtils.isNumeric(phone))||
                 StringUtils.isBlank(mail)||StringUtils.isBlank(GPS)||!(StringUtils.isNumeric(daily))||!(StringUtils.isNumeric(trnsp))||StringUtils.isBlank(num_cmd)||
@@ -20,12 +19,12 @@ public class PaymentException {
 
         if(!paym.order_exist(num_cmd,total,tva,ttc))
             throw new Exception("cette commande pas existé");
-        if(!paym.delivery_exist(wilaya,commune,c_postal,home,GPS,phone,mail,daily,trnsp))
+        if(!paym.delivery_home_exist(wilaya,commune,c_postal,home,GPS,phone,mail,daily,trnsp))
             throw  new Exception("cette livraison pas existé");
       return true;
     }
 
-    public boolean payment_delerPV_validate( String phone, String mail,String point, String GPS,String daily,
+    public boolean payment_delivery_point_saller( String phone, String mail,String point, String GPS,String daily,
                                              String num_cmd, String total, String tva,String ttc) throws Exception {
 
 
@@ -37,7 +36,7 @@ public class PaymentException {
 
         if(!paym.order_exist(num_cmd,total,tva,ttc))
             throw new Exception("cette commande pas existé");
-        if(!paym.delivery_exist_pv(point,GPS,phone,mail,daily))
+        if(!paym.delivery_point_saller_exist(point,GPS,phone,mail,daily))
             throw  new Exception("cette livraison pas existé");
         return true;
     }

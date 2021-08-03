@@ -1,12 +1,13 @@
-package com.example.transaction_test_unit;
+package Delivery;
 
+import Order.OrderService;
 import org.apache.commons.lang3.StringUtils;
 
 public class DeliveryException {
     //delivery exception
     OrderService order;
     DeliveryService delivery;
-    public boolean home_delivery_validate(String wilaya,String commune,String c_postal,String home,String phone,String mail,String GPS) throws Exception {
+    public boolean home_delivery(String wilaya,String commune,String c_postal,String home,String phone,String mail,String GPS) throws Exception {
         //exception in the case of home delivery
         if(StringUtils.isBlank(wilaya)|| StringUtils.isBlank(commune)||!(StringUtils.isNumeric(c_postal))||
                 StringUtils.isBlank(home)||!(StringUtils.isNumeric(phone))||
@@ -22,7 +23,7 @@ public class DeliveryException {
 
         return true;
     }
-    public boolean Delivery_PtSr_validate(String phone,String mail,String GPS,String point) throws Exception {
+    public boolean Delivery_Point_Saller(String phone,String mail,String GPS,String point) throws Exception {
         //exception in the case of delivery point or delivery point to the seller
         if(!(StringUtils.isNumeric(phone))||StringUtils.isBlank(mail)||StringUtils.isBlank(GPS))
             throw new Exception("les information d'une commande doit être correct et pas vide");
