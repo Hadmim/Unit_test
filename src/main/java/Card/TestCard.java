@@ -250,8 +250,8 @@ public class TestCard {
     @Test
     public void Transaction_Password_Test_inputpassword_false() throws Exception {
         //password false
-        when(card.password(anyString())).thenReturn("password false");
-        String input_password="password";
+        when(card.password(anyString())).thenReturn("password");
+        String input_password="password false";
         exceptionRule.expect(Exception.class);
         exceptionRule.expectMessage("Saisie Mot de Passe erroné");
         cardexp.transaction_password("",input_password);
