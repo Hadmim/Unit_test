@@ -37,7 +37,7 @@ public class TestCard {
 
 
     @Test
-    public void date_Expiry_Test_valid() throws Exception {
+    public void date_Expiry_Test_inputdate_true() throws Exception {
         // card date true
         when(card.date_expiration(anyString())).thenReturn(sdf.parse("11-8-2021"));
         String date_Expiry_input="11-08-2021";
@@ -55,7 +55,7 @@ public class TestCard {
 
     }
     @Test
-    public void date_Expiry_expired_Test_notexpired() throws Exception {
+    public void date_Expiry_expired_Test_not_expired() throws Exception {
         // card date Expiry not expired
         String date_Expiry_input="11-8-2023";
         boolean date = cardexp.date_Expiry_expired(sdf.parse(date_Expiry_input));
@@ -100,7 +100,7 @@ public class TestCard {
 
     }
     @Test
-    public void lost_card_Test_notlost() throws Exception {
+    public void lost_card_Test_not_lost() throws Exception {
         //card not lost
         when(card.card_lost(anyString())).thenReturn(false);
 
@@ -118,7 +118,7 @@ public class TestCard {
 
     }
     @Test
-    public void Stop_card_Test_notstop() throws Exception {
+    public void Stop_card_Test_not_stop() throws Exception {
         //card not stopped
         when(card.card_stopped(anyString())).thenReturn(false);
 
@@ -153,7 +153,7 @@ public class TestCard {
 
     }
     @Test
-    public void card_cvv2_Test_valid() throws Exception {
+    public void card_cvv2_Test_inputcvv2_true() throws Exception {
         //card cvv2 true
         when(card.card_cvv2(anyString())).thenReturn(126);
         int input_cvv2=126;
@@ -171,7 +171,7 @@ public class TestCard {
 
     }
     @Test
-    public void Authorized_ServPayment_Test_valid() throws Exception {
+    public void Authorized_ServPayment_authorized() throws Exception {
         //card  authorized for online payment
         when(card.card_Authorized_ServPayment(anyString())).thenReturn(true);
 
@@ -188,7 +188,7 @@ public class TestCard {
 
     }
     @Test
-    public void Active_ServPayment_Test_valid() throws Exception {
+    public void Active_ServPayment_active() throws Exception {
         //card active for online payment
         when(card.card_Active_SerPayment(anyString())).thenReturn(true);
 
@@ -205,7 +205,7 @@ public class TestCard {
 
     }
     @Test
-    public void Card_Stolen_Test_notstolen() throws Exception {
+    public void Card_Stolen_Test_not_stolen() throws Exception {
         //card not stolen
         when(card.card_stolen(anyString())).thenReturn(false);
 
@@ -222,7 +222,7 @@ public class TestCard {
 
     }
     @Test
-    public void Number_Transaction_Test_not_Outmoded() throws Exception {
+    public void Number_Transaction_Test_not_outmoded() throws Exception {
         //number of transaction not Outmoded
         when(card.card_number_transaction()).thenReturn(3);
         int number_of_transaction=2;
@@ -240,7 +240,7 @@ public class TestCard {
 
     }
     @Test
-    public void  Transaction_Password_Test_valid() throws Exception {
+    public void  Transaction_Password_Test_inputpassword_true() throws Exception {
         //password true
         when(card.password(anyString())).thenReturn("password");
         String input_password="password";
@@ -259,7 +259,7 @@ public class TestCard {
     }
 
     @Test
-    public void Authorized_merchant_Test_valid() throws Exception {
+    public void Authorized_merchant_authorized() throws Exception {
         //card accepted by the merchant
         when(card.card_Authorized_merchant(anyString())).thenReturn(true);
 
@@ -277,7 +277,7 @@ public class TestCard {
     }
 
     @Test
-    public void Number_Password_Test_not_Outmoded() throws Exception {
+    public void Number_Password_Test_not_outmoded() throws Exception {
         //number of input password not Outmoded
         when(card.number_passw()).thenReturn(3);
         int number_of_password=2;
@@ -285,7 +285,7 @@ public class TestCard {
         assertEquals(true,NumPass);
     }
     @Test
-    public void Number_Password_Test_Outmoded() throws Exception {
+    public void Number_Password_Test_outmoded() throws Exception {
         //number of input password Outmoded
         when(card.number_passw()).thenReturn(3);
         int number_of_password=4;
